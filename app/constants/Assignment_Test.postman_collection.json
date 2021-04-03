@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "26cabb90-7d39-4dee-9f26-48188178f35e",
+		"name": "Assignment_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register-new-user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"user_email\": \"kumar.dhananjay2505@gmail.com\",\r\n    \"user_pwd\": \"Demo@123\",\r\n    \"c_user_pwd\": \"Demo@123\",\r\n    \"user_type\": \"1\",\r\n    \"t_and_c\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/test_registration/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"test_registration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"kumar.dhananjay2505@gmail.com\",\r\n    \"pwd\": \"Demo@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/test_login/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"test_login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-profile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"type": "text",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"216\",\r\n    \"user_name\": \"dhananjay2505\",\r\n    \"user_first_name\": \"dhananjay\",\r\n    \"user_last_name\": \"kumar\",\r\n    \"user_mobile\": \"8920830512\",\r\n    \"year_of_birth\": \"25/05/1990\",\r\n    \"gender\": \"Male\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/test_profile_update/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"test_profile_update",
+						""
+					]
+				},
+				"description": "\"user_first_name\": \"dhananjay\",\r\n    \"user_last_name\": \"kumar\",\r\n    \"user_business_name\": \"abc pvt ltd\",\r\n    \"user_business_IRD_number\": \"123456789\",\r\n    \"user_business_type\": \"ABC\""
+			},
+			"response": []
+		},
+		{
+			"name": "get-otp",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"type": "text",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"216\",\r\n    \"email\": \"kumar.dhananjay2505@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/test_email_generate_otp/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"test_email_generate_otp",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "otp-validation",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"type": "text",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"216\",\r\n    \"otp\": \"962941\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/test_email_otp_validation/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"test_email_otp_validation",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-email-via-otp",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"type": "text",
+						"value": "ds89fdfvcb87gf8dfdg87fdghgjh897"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"216\",\r\n    \"email\": \"dhananjaykmr6@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wethink.pw/test/update_test_email_generate_otp/",
+					"protocol": "http",
+					"host": [
+						"wethink",
+						"pw"
+					],
+					"path": [
+						"test",
+						"update_test_email_generate_otp",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
