@@ -28,35 +28,67 @@ class Signup extends Component {
 
   startSignUp = async () => {
     try {
-      const signUpBody = {
-        user_email: this.state.email,
-        user_pwd: this.state.password,
-        c_user_pwd: this.state.confirmPassword,
-        user_type: '1',
-        t_and_c: true,
-      };
-      console.log('signUpBody:', signUpBody);
-      fetch(urls.REGISTER, {
-        method: 'POST',
-        headers: {
-          // Accept: 'application/json',
-          Authorization: 'Basic YWRtaW46MTIzNA==',
-          'X-API-KEY': 'ds89fdfvcb87gf8dfdg87fdghgjh897',
-        },
-        body: signUpBody,
-      })
-        .then(resp => {
-          return resp.json();
-        })
-        .then(resp => {
-          console.log('resp:', resp);
-          if (resp.status == 0) {
-            this.setState({
-              snackbarVisibility: true,
-              snackbarMsg: resp.message,
-            });
-          }
+      if (
+        this.state.email.length == 0 ||
+        this.state.password.length == 0 ||
+        this.state.confirmPassword.length == 0
+      ) {
+        this.setState({
+          snackbarMsg: "Fields can't be left empty",
+          snackbarVisibility: true,
         });
+      } else if (this.state.password != this.state.confirmPassword) {
+        this.setState({
+          snackbarMsg: 'Passwords to not match',
+          snackbarVisibility: true,
+        });
+      } else {
+        var myHeaders = new Headers();
+        myHeaders.append('X-API-KEY', 'ds89fdfvcb87gf8dfdg87fdghgjh897');
+        myHeaders.append('Authorization', 'Basic YWRtaW46MTIzNA==');
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append(
+          'Cookie',
+          'ci_session=a398d10df611ea4f9b475b8c6288fa3f2bafeb1a; csrf_cookie_name=f37003fc90c6ecc36567538dce277598',
+        );
+
+        var raw = JSON.stringify({
+          user_email: this.state.email,
+          user_pwd: this.state.password,
+          c_user_pwd: this.state.confirmPassword,
+          user_type: '1',
+          t_and_c: true,
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow',
+        };
+
+        fetch('https://wethink.pw/test/test_registration/', requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log('result:', result);
+            if (result.status == '0') {
+              this.setState({
+                snackbarMsg: result.message,
+                snackbarVisibility: true,
+              });
+            } else {
+              this.setState({
+                snackbarMsg: result.message + ' Login To Continue',
+                snackbarVisibility: true,
+              });
+              setTimeout(() => {
+                this.props.navigation.navigate('Login');
+              }, 4000);
+            }
+            console.log('resultTYpe:', typeof result);
+          })
+          .catch(error => console.log('error', error));
+      }
     } catch (error) {
       console.log('error:', error);
     }

@@ -9,6 +9,9 @@ import {
 } from 'react-native';
 import color from '../../constants/color';
 import {Snackbar, Checkbox, Button} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
+import storageKeys from '../../constants/storageKeys';
+import {MyContext} from '../../navigation/AppNavigation';
 import {postRequest, getRequest} from '../../services/APIRequest';
 import urls from '../../constants/urls';
 import Base64 from '../../utils/Base64';
@@ -25,36 +28,46 @@ class Login extends Component {
     };
   }
 
-  startLogin = async () => {
+  startLogin = async login => {
     try {
-      let loginBody = {
+      var myHeaders = new Headers();
+      myHeaders.append('X-API-KEY', 'ds89fdfvcb87gf8dfdg87fdghgjh897');
+      myHeaders.append('Authorization', 'Basic YWRtaW46MTIzNA==');
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append(
+        'Cookie',
+        'ci_session=a398d10df611ea4f9b475b8c6288fa3f2bafeb1a; csrf_cookie_name=7e603d783e505b02881156aad6d2988d',
+      );
+
+      var raw = JSON.stringify({
         email: this.state.email,
         pwd: this.state.password,
-      };
-      // loginBody = JSON.stringify(loginBody);
-      console.log('loginBody:', loginBody);
-      fetch(urls.LOGIN, {
+      });
+      var requestOptions = {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Basic YWRtaW46MTIzNA==',
-          'X-API-KEY': 'ds89fdfvcb87gf8dfdg87fdghgjh897',
-        },
-        body: loginBody,
-      })
-        .then(resp => {
-          return resp.json();
-        })
-        .then(resp => {
-          console.log('resp:', resp);
-          if (resp.status == 0) {
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow',
+      };
+
+      fetch('https://wethink.pw/test/test_login/', requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log('result:', result);
+          if (result.status == '0') {
             this.setState({
+              snackbarMsg: result.message,
               snackbarVisibility: true,
-              snackbarMsg: resp.message,
             });
+          } else {
+            AsyncStorage.setItem(
+              storageKeys.PROFILE_DATA,
+              JSON.stringify(result.data),
+            );
+            setTimeout(login, 800);
           }
-          //resp contains your json data
-        });
+        })
+        .catch(error => console.log('error', error));
     } catch (error) {
       console.log('error:', error);
     }
@@ -148,18 +161,26 @@ class Login extends Component {
           </View>
           <View
             style={{width: DEVICE_WIDTH, alignItems: 'center', marginTop: 34}}>
-            <TouchableOpacity
-              onPress={() => this.startLogin()}
-              style={{
-                backgroundColor: color.THEME_ORANGE,
-                width: DEVICE_WIDTH - 54,
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 54,
-                borderRadius: 6,
-              }}>
-              <Text style={{color: color.WHITE, fontSize: 22}}>SIGN IN</Text>
-            </TouchableOpacity>
+            <MyContext.Consumer>
+              {value => (
+                <TouchableOpacity
+                  onPress={() => {
+                    this.startLogin(value);
+                  }}
+                  style={{
+                    backgroundColor: color.THEME_ORANGE,
+                    width: DEVICE_WIDTH - 54,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 54,
+                    borderRadius: 6,
+                  }}>
+                  <Text style={{color: color.WHITE, fontSize: 22}}>
+                    SIGN IN
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </MyContext.Consumer>
           </View>
         </View>
         <View

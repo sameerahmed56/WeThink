@@ -1,4 +1,4 @@
-const BASE_URL = 'http://wethink.pw/test/';
+const BASE_URL = 'https://wethink.pw/test/';
 export default {
   LOGIN: BASE_URL + 'test_login/',
   REGISTER: BASE_URL + 'test_registration/',

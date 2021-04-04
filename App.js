@@ -18,7 +18,6 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 
 import AppNavigation from './app/navigation/AppNavigation';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import color from './app/constants/color';
 
 const App = props => (
